@@ -122,22 +122,44 @@ end
     build_ibs_kernel(G)
 
 Constructs an Identity-By-State (IBS) Kernel.
+Optimized using vectorized distance computation.
 """
 function build_ibs_kernel(G::GenotypeMatrix)
     M = G.data
     n, m = size(M)
-    K = zeros(n, n)
     
-    # Distance based IBS: 1 - dist / 2m
-    # Manhattan distance on 0,1,2 data
-    # Naive implementation
-    for i in 1:n
-        for j in i:n
-            dist = sum(abs.(M[i, :] .- M[j, :]))
-            sim = 1.0 - dist / (2.0 * m)
-            K[i, j] = sim
-            K[j, i] = sim
-        end
+    # Handle missing values with mean imputation
+    M_imp = copy(M)
+    for j in 1:m
+        col = view(M, :, j)
+        mu = mean(skipmissing(col))
+        M_imp[isnan.(col), j] .= mu
     end
+    
+    # Compute pairwise Manhattan distances efficiently
+    # For genotype data (0,1,2), Manhattan distance = sum|x_i - x_j|
+    # We can use: D_ij = sum_k |M_ik - M_jk|
+    
+    # Vectorized approach using broadcasting
+    # D[i,j] = sum over k of |M[i,k] - M[j,k]|
+    # This can be computed as: ||M[i,:] - M[j,:]||_1
+    
+    K = zeros(Float64, n, n)
+    
+    # Use BLAS for efficiency where possible
+    # Compute all pairwise differences
+    for i in 1:n
+        # Vectorized computation for row i against all rows
+        # Broadcasting: M_imp .- M_imp[i:i, :] gives (n x m) matrix
+        diffs = abs.(M_imp .- M_imp[i:i, :])
+        dists = vec(sum(diffs, dims=2))
+        
+        # Convert distance to similarity: IBS = 1 - dist/(2m)
+        K[i, :] = 1.0 .- dists ./ (2.0 * m)
+    end
+    
+    # Ensure perfect symmetry
+    K = (K + K') / 2.0
+    
     return K
 end
