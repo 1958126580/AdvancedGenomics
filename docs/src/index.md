@@ -1,7 +1,8 @@
 # AdvancedGenomics.jl
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Julia](https://img.shields.io/badge/julia-v1.9+-blue.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
+![Julia](https://img.shields.io/badge/julia-v1.10+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Docs](https://img.shields.io/badge/docs-stable-blue.svg)
 ![GPU](https://img.shields.io/badge/GPU-CUDA-green.svg)
