@@ -15,3 +15,8 @@ makedocs(
     warnonly = true,
     clean = true
 )
+
+deploydocs(
+    repo = "github.com/1958126580/AdvancedGenomics.git",
+    devbranch = "main"
+)
