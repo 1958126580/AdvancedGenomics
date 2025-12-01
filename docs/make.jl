@@ -6,7 +6,6 @@ makedocs(
     format = Documenter.HTML(
         prettyurls = true
     ),
-    modules = [AdvancedGenomics],
     pages = [
         "Home" => "index.md",
         "About" => "about.md",

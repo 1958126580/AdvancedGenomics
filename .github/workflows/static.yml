@@ -36,8 +36,10 @@ jobs:
       - name: Build documentation
         run: julia --project=docs/ docs/make.jl
 
-      - name: Create .nojekyll
-        run: touch docs/build/.nojekyll
+      - name: Create .nojekyll and debug.html
+        run: |
+          touch docs/build/.nojekyll
+          echo "<html><body><h1>Debug Page</h1><p>Deployment works.</p></body></html>" > docs/build/debug.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
