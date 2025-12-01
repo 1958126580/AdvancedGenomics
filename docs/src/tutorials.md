@@ -21,7 +21,7 @@ Welcome to the comprehensive user guide for **AdvancedGenomics.jl**. This docume
 
 ## 1. Standard GWAS Pipeline
 
-**Script:** `examples/01_GWAS_Standard.jl`
+**Script:** [01_GWAS_Standard.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/01_GWAS_Standard.jl)
 
 ### Overview
 
@@ -70,7 +70,7 @@ qq_plot_interactive(results.p_values)
 
 ## 2. Advanced GWAS Methods
 
-**Script:** `examples/02_GWAS_Advanced.jl`
+**Script:** [02_GWAS_Advanced.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/02_GWAS_Advanced.jl)
 
 ### Overview
 
@@ -87,7 +87,7 @@ This tutorial expands on standard GWAS to handle binary traits, rare variants, a
 
 ## 3. Genomic Selection (Kernels & ML)
 
-**Script:** `examples/03_GS_Kernels_ML.jl`
+**Script:** [03_GS_Kernels_ML.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/03_GS_Kernels_ML.jl)
 
 ### Overview
 
@@ -109,7 +109,7 @@ Genomic Selection (GS) aims to predict the genetic merit of individuals based on
 
 ## 4. Bayesian Genomic Selection
 
-**Script:** `examples/04_GS_Bayesian.jl`
+**Script:** [04_GS_Bayesian.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/04_GS_Bayesian.jl)
 
 ### Overview
 
@@ -126,7 +126,7 @@ Bayesian methods allow for different prior assumptions about marker effects, oft
 
 ## 5. Deep Learning for Genomics
 
-**Script:** `examples/05_Deep_Learning.jl`
+**Script:** [05_Deep_Learning.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/05_Deep_Learning.jl)
 
 ### Overview
 
@@ -151,7 +151,7 @@ Deep Learning models are often "black boxes". We use **Saliency Maps** to comput
 
 ## 6. Complex Statistical Models
 
-**Script:** `examples/06_Complex_Models.jl`
+**Script:** [06_Complex_Models.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/06_Complex_Models.jl)
 
 ### Overview
 
@@ -166,7 +166,7 @@ Real-world data is often complex. This script handles multi-variate and longitud
 
 ## 7. Breeding Program Optimization
 
-**Script:** `examples/07_Breeding.jl`
+**Script:** [07_Breeding.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/07_Breeding.jl)
 
 ### Overview
 
@@ -181,7 +181,7 @@ This example is designed for breeders. It focuses on making optimal selection de
 
 ## 8. Multi-Omics Integration
 
-**Script:** `examples/08_Multi_Omics.jl`
+**Script:** [08_Multi_Omics.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/08_Multi_Omics.jl)
 
 ### Overview
 
@@ -196,7 +196,7 @@ Genetics is just one layer. This script integrates Transcriptomics (Gene Express
 
 ## 9. Modern Statistical Methods
 
-**Script:** `examples/09_Modern_Stats.jl`
+**Script:** [09_Modern_Stats.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/09_Modern_Stats.jl)
 
 ### Overview
 
@@ -212,7 +212,7 @@ Showcases advanced statistical and optimization techniques.
 
 ## 10. HPC & Population Genetics
 
-**Script:** `examples/10_HPC_PopGen.jl`
+**Script:** [10_HPC_PopGen.jl](https://github.com/1958126580/AdvancedGenomics/blob/main/examples/10_HPC_PopGen.jl)
 
 ### Overview
 
