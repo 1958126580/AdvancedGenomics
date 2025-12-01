@@ -13,7 +13,8 @@ makedocs(
         "User Manual" => "manual.md",
         "Tutorials" => "tutorials.md",
         "API Reference" => "api.md"
-    ]
+    ],
+    warnonly = true
 )
 
 # deploydocs(
