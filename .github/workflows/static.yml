@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 jobs:
   deploy:
@@ -19,7 +20,7 @@ jobs:
       - name: Create static site
         run: |
           mkdir -p _site
-          cat > _site/index.html << 'EOF'
+          cat > _site/index.html <<'HTMLEOF'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -28,7 +29,7 @@ jobs:
               <title>AdvancedGenomics.jl</title>
               <style>
                   body {
-                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                       line-height: 1.6;
                       max-width: 900px;
                       margin: 0 auto;
@@ -85,22 +86,21 @@ jobs:
                       <span class="badge badge-success">MIT License</span>
                   </p>
 
-                  <p><strong>AdvancedGenomics.jl</strong> is a high-performance Julia package designed for next-generation genomic analysis. It integrates state-of-the-art statistical methods with deep learning to solve complex problems in quantitative genetics and breeding.</p>
+                  <p><strong>AdvancedGenomics.jl</strong> is a high-performance Julia package for genomic analysis.</p>
 
                   <h2>🚀 Key Features</h2>
                   <ul>
-                      <li><strong>High Performance:</strong> Optimized for massive datasets using multi-threading and GPU acceleration</li>
-                      <li><strong>Comprehensive:</strong> Unified framework for GWAS, Genomic Selection, and Deep Learning</li>
-                      <li><strong>Flexible:</strong> Modular design allows easy integration of new models and algorithms</li>
+                      <li><strong>High Performance:</strong> Optimized for massive datasets</li>
+                      <li><strong>Comprehensive:</strong> GWAS, Genomic Selection, Deep Learning</li>
+                      <li><strong>Flexible:</strong> Modular design</li>
                   </ul>
 
                   <h2>📦 Installation</h2>
                   
                   <div class="important">
-                      <strong>⚠️ Important:</strong> This package is <strong>not registered</strong> in the General Registry. You must install it directly from GitHub.
+                      <strong>⚠️ Important:</strong> Install directly from GitHub
                   </div>
 
-                  <p>Open the Julia REPL and run:</p>
                   <pre><code>using Pkg
 Pkg.add(url="https://github.com/1958126580/AdvancedGenomics")</code></pre>
 
@@ -108,55 +108,36 @@ Pkg.add(url="https://github.com/1958126580/AdvancedGenomics")</code></pre>
                   
                   <h3>GWAS Analysis</h3>
                   <pre><code>using AdvancedGenomics
-
-# Load data
 genotypes = load_genotypes("data.vcf")
 phenotypes = load_phenotypes("traits.csv")
-
-# Run GWAS
 results = run_gwas(genotypes, phenotypes)
-
-# Visualize
 manhattan_plot(results)</code></pre>
 
                   <h3>Genomic Selection</h3>
-                  <pre><code># Build Genomic Relationship Matrix (GRM)
-K = build_grm(genotypes)
-
-# Train model
+                  <pre><code>K = build_grm(genotypes)
 model = train_gblup(phenotypes, K)
-
-# Predict breeding values
 ebv = predict(model, new_genotypes)</code></pre>
 
                   <h3>Deep Learning</h3>
-                  <pre><code>using Lux
-
-# Define Genomic Transformer
-model = GenomicTransformer(
+                  <pre><code>model = GenomicTransformer(
     vocab_size = 4,
     embed_dim = 64,
     num_heads = 4,
     num_layers = 2
 )
-
-# Train
 train!(model, genotypes, phenotypes)</code></pre>
 
                   <h2>📖 Documentation</h2>
-                  <p>For detailed documentation, examples, and API reference, visit the <a href="https://github.com/1958126580/AdvancedGenomics">GitHub repository</a>.</p>
-
-                  <h2>🤝 Contributing</h2>
-                  <p>Contributions are welcome! Please feel free to submit issues and pull requests on <a href="https://github.com/1958126580/AdvancedGenomics">GitHub</a>.</p>
+                  <p>Visit <a href="https://github.com/1958126580/AdvancedGenomics">GitHub</a> for details.</p>
 
                   <hr style="margin: 40px 0;">
                   <p style="text-align: center; color: #7f8c8d; font-size: 14px;">
-                      Last updated: 2025-12-01 | <a href="https://github.com/1958126580/AdvancedGenomics">View on GitHub</a>
+                      Last updated: 2025-12-01 | <a href="https://github.com/1958126580/AdvancedGenomics">GitHub</a>
                   </p>
               </div>
           </body>
           </html>
-          EOF
+          HTMLEOF
           touch _site/.nojekyll
 
       - name: Deploy to gh-pages
