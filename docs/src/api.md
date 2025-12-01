@@ -1,7 +1,5 @@
 # API Reference
 
-## Public Interface
-
 ```@index
 
 ```
