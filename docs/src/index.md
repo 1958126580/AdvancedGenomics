@@ -1,4 +1,4 @@
-# AdvancedGenomics.jl
+# AdvancedGenomics.jl (Updated: 2025-12-01)
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 ![Julia](https://img.shields.io/badge/julia-v1.10+-blue.svg)

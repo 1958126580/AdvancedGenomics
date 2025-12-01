@@ -1,5 +1,5 @@
 using Documenter
-using AdvancedGenomics
+# using AdvancedGenomics
 
 makedocs(
     sitename = "AdvancedGenomics.jl",
@@ -10,7 +10,7 @@ makedocs(
     pages = [
         "Home" => "index.md",
         "Manual" => "manual.md",
-        "API" => "api.md"
+        # "API" => "api.md"
     ],
     warnonly = true,
     clean = true
