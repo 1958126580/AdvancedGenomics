@@ -8,19 +8,6 @@
 
 Welcome to the documentation for **AdvancedGenomics.jl**, a high-performance genomic analysis package written in Julia.
 
-## 🌟 Overview
-
-**AdvancedGenomics.jl** bridges the gap between classical quantitative genetics and modern deep learning, offering a unified framework for researchers and breeders. It is designed for:
-
-- 🚀 **Speed**: Optimized BLAS/LAPACK operations and multi-threading.
-- 📈 **Scale**: GPU acceleration for massive matrix operations.
-- 🧠 **Innovation**: Integration of Transformers, GNNs, and Explainable AI (XAI).
-
-## 🔄 Workflow
-
-```mermaid
-graph LR
-    Data[🧬 Genotype Data] --> QC[🔍 Quality Control]
     QC --> GRM[Build GRM]
     GRM --> GWAS[📊 GWAS Analysis]
     GWAS --> Vis[📉 Visualization]
@@ -30,7 +17,8 @@ graph LR
 
     Data --> DL[🤖 Deep Learning]
     DL --> XAI[💡 Explainable AI]
-```
+
+````
 
 ## 📦 Installation
 
@@ -48,7 +36,7 @@ Open the Julia REPL and enter the package manager by pressing `]`. Then run:
 
 ```julia
 pkg> add https://github.com/1958126580/AdvancedGenomics
-```
+````
 
 Or using `Pkg` in a script:
 
