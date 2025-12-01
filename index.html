@@ -3,521 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdvancedGenomics.jl - Next-Generation Genomic Analysis</title>
+    <title>AdvancedGenomics.jl - Next-Generation Genomic Analysis Framework</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
         }
-        .container {
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        nav .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 120px 2rem;
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23ffffff"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23ffffff"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ffffff"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.1;
         }
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            font-weight: 700;
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
         }
-        header p {
-            font-size: 1.3em;
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
             opacity: 0.95;
+            position: relative;
         }
+        
         .badges {
-            margin: 20px 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 1rem;
+            margin: 2rem 0;
+            position: relative;
         }
+        
         .badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
             font-weight: 600;
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
-        .content {
-            padding: 50px 40px;
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: relative;
         }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 100px 2rem;
+        }
+        
         h2 {
-            color: #667eea;
-            font-size: 2em;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        
         h3 {
-            color: #764ba2;
-            font-size: 1.5em;
-            margin: 30px 0 15px 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 2.5rem 0 1.5rem 0;
         }
+        
+        /* Feature Grid */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+            gap: 2rem;
+            margin: 3rem 0;
         }
+        
         .feature-card {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+        
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
         }
+        
+        .feature-card:hover::before {
+            transform: scaleY(1);
+        }
+        
         .feature-card h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
+        
         .feature-card ul {
             list-style: none;
-            padding-left: 0;
-        }
-        .feature-card li:before {
-            content: "✓ ";
-            color: #27ae60;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', Consolas, monospace;
-            font-size: 0.9em;
-            color: #e83e8c;
-        }
-        pre {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 20px 0;
-            border-left: 4px solid #667eea;
-        }
-        pre code {
-            background: none;
-            color: #ecf0f1;
             padding: 0;
         }
+        
+        .feature-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Code Blocks */
+        code {
+            background: var(--light);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--accent);
+        }
+        
+        pre {
+            background: var(--dark);
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        /* Warning Box */
         .warning-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
         }
+        
         .warning-box strong {
-            color: #856404;
+            color: #92400e;
         }
+        
+        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 2rem 0;
             background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
+        
         th, td {
-            padding: 15px;
+            padding: 1.2rem;
             text-align: left;
-            border-bottom: 1px solid #e9ecef;
         }
+        
         th {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             font-weight: 600;
         }
+        
+        tr:nth-child(even) {
+            background: var(--light);
+        }
+        
         tr:hover {
-            background: #f8f9fa;
+            background: rgba(99, 102, 241, 0.05);
         }
-        .architecture-diagram {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 30px 0;
+        
+        /* Discussion Section */
+        .discussion-section {
+            background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .discussion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .discussion-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
             text-align: center;
-        }
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        footer a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-        .cta-button {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 10px 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             transition: all 0.3s;
         }
-        .cta-button:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        
+        .discussion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+        }
+        
+        .discussion-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .discussion-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            nav ul { display: none; }
+            .cta-buttons { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🧬 AdvancedGenomics.jl</h1>
-            <p>Next-Generation High-Performance Genomic Analysis Framework</p>
-            <div class="badges">
-                <span class="badge">Julia 1.10+</span>
-                <span class="badge">GPU Accelerated</span>
-                <span class="badge">Deep Learning</span>
-                <span class="badge">MIT License</span>
+    <nav>
+        <div class="container">
+            <div class="logo">🧬 AdvancedGenomics.jl</div>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="https://github.com/1958126580/AdvancedGenomics">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>🧬 AdvancedGenomics.jl</h1>
+        <p>Next-Generation High-Performance Genomic Analysis Framework</p>
+        <div class="badges">
+            <span class="badge">Julia 1.10+</span>
+            <span class="badge">GPU Accelerated</span>
+            <span class="badge">Deep Learning</span>
+            <span class="badge">Open Source</span>
+        </div>
+        <div class="cta-buttons">
+            <a href="#installation" class="btn btn-primary">Get Started</a>
+            <a href="https://github.com/1958126580/AdvancedGenomics" class="btn btn-secondary">View on GitHub</a>
+        </div>
+    </div>
+
+    <section id="overview">
+        <div class="container">
+            <h2>📖 Overview</h2>
+            <p style="font-size: 1.2rem; line-height: 1.8; color: var(--gray);">
+                <strong>AdvancedGenomics.jl</strong> is a comprehensive, high-performance Julia package that bridges classical quantitative genetics with modern machine learning and deep learning approaches. Designed for researchers, breeders, and bioinformaticians, it provides a unified framework for genome-wide association studies (GWAS), genomic selection (GS), population genetics, and advanced statistical modeling.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--gray); margin-top: 1rem;">
+                The package leverages Julia's exceptional performance characteristics, offering multi-threaded CPU implementations and seamless GPU acceleration for computationally intensive tasks. With over <strong>100+ exported functions</strong> spanning statistical genetics, machine learning, deep learning, and visualization, AdvancedGenomics.jl represents a complete toolkit for modern genomic analysis.
+            </p>
+        </div>
+    </section>
+
+    <section id="features" style="background: var(--light);">
+        <div class="container">
+            <h2>🚀 Key Features</h2>
+            
+            <h3>Genome-Wide Association Studies (GWAS)</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Linear Models</h4>
+                    <ul>
+                        <li>FarmCPU algorithm</li>
+                        <li>BLINK implementation</li>
+                        <li>Population structure correction</li>
+                        <li>Kinship matrix integration</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Advanced Methods</h4>
+                    <ul>
+                        <li>Logistic regression (case-control)</li>
+                        <li>Rare variant burden tests</li>
+                        <li>Meta-analysis (IVW, fixed/random)</li>
+                        <li>Fine-mapping with PIP</li>
+                    </ul>
+                </div>
             </div>
-            <div style="margin-top: 20px;">
-                <a href="#installation" class="cta-button">Get Started</a>
-                <a href="https://github.com/1958126580/AdvancedGenomics" class="cta-button">View on GitHub</a>
+
+            <h3>Genomic Selection & Prediction</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Kernel Methods</h4>
+                    <ul>
+                        <li>Linear, RBF, Polynomial kernels</li>
+                        <li>Interaction & dominance kernels</li>
+                        <li>Haplotype-based kernels</li>
+                        <li>RKHS regression</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Bayesian Approaches</h4>
+                    <ul>
+                        <li>BayesA, BayesB, BayesC</li>
+                        <li>BayesR (multi-component)</li>
+                        <li>Bayesian Lasso</li>
+                        <li>Variational inference</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Machine Learning</h4>
+                    <ul>
+                        <li>Random Forest ensembles</li>
+                        <li>Gradient Boosting Machines</li>
+                        <li>LASSO & Elastic Net</li>
+                        <li>Neural Network Mixed Models</li>
+                    </ul>
+                </div>
             </div>
-        </header>
 
-        <div class="content">
-            <section id="overview">
-                <h2>📖 Overview</h2>
-                <p><strong>AdvancedGenomics.jl</strong> is a comprehensive, high-performance Julia package that bridges classical quantitative genetics with modern machine learning and deep learning approaches. Designed for researchers, breeders, and bioinformaticians, it provides a unified framework for genome-wide association studies (GWAS), genomic selection (GS), population genetics, and advanced statistical modeling.</p>
-                
-                <p>The package leverages Julia's exceptional performance characteristics, offering multi-threaded CPU implementations and seamless GPU acceleration for computationally intensive tasks. With over 100+ exported functions spanning statistical genetics, machine learning, deep learning, and visualization, AdvancedGenomics.jl represents a complete toolkit for modern genomic analysis.</p>
-            </section>
-
-            <section id="architecture">
-                <h2>🏗️ Software Architecture</h2>
-                <div class="architecture-diagram">
-                    <h3>Modular Design</h3>
-                    <p><strong>Core Modules:</strong> Types, IO, Statistics, Models, Deep Learning, Visualization, HPC</p>
+            <h3>Deep Learning for Genomics</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🤖 Transformers</h4>
+                    <ul>
+                        <li>Self-attention mechanisms</li>
+                        <li>Long-range LD capture</li>
+                        <li>Sequence-to-phenotype</li>
+                    </ul>
                 </div>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>📊 Core & IO</h4>
-                        <ul>
-                            <li>GenotypeMatrix (dense/sparse)</li>
-                            <li>PhenotypeData structures</li>
-                            <li>PLINK format support</li>
-                            <li>VCF/GFF readers</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>📈 Statistical Methods</h4>
-                        <ul>
-                            <li>Linear Mixed Models (LMM)</li>
-                            <li>Variance component estimation</li>
-                            <li>Multiple testing correction</li>
-                            <li>Quality control pipelines</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🤖 Machine Learning</h4>
-                        <ul>
-                            <li>Random Forest & GBM</li>
-                            <li>Bayesian methods (MCMC)</li>
-                            <li>Kernel-based selection</li>
-                            <li>Cross-validation</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🧠 Deep Learning</h4>
-                        <ul>
-                            <li>Genomic Transformers</li>
-                            <li>Graph Neural Networks</li>
-                            <li>CNN & Autoencoders</li>
-                            <li>Explainable AI (XAI)</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <h4>🕸️ Graph Networks</h4>
+                    <ul>
+                        <li>Pathway-based analysis</li>
+                        <li>Biological network integration</li>
+                        <li>Gene interaction modeling</li>
+                    </ul>
                 </div>
-            </section>
-
-            <section id="features">
-                <h2>🚀 Key Features</h2>
-                
-                <h3>Genome-Wide Association Studies (GWAS)</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>Linear Models</h4>
-                        <ul>
-                            <li>FarmCPU algorithm</li>
-                            <li>BLINK implementation</li>
-                            <li>Population structure correction</li>
-                            <li>Kinship matrix integration</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>Advanced Methods</h4>
-                        <ul>
-                            <li>Logistic regression (case-control)</li>
-                            <li>Rare variant burden tests</li>
-                            <li>Meta-analysis (IVW, fixed/random)</li>
-                            <li>Fine-mapping with PIP</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <h4>🔍 Explainable AI</h4>
+                    <ul>
+                        <li>Saliency maps</li>
+                        <li>Attention visualization</li>
+                        <li>Feature importance</li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <h3>Genomic Selection & Prediction</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>Kernel Methods</h4>
-                        <ul>
-                            <li>Linear, RBF, Polynomial kernels</li>
-                            <li>Interaction & dominance kernels</li>
-                            <li>Haplotype-based kernels</li>
-                            <li>RKHS regression</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>Bayesian Approaches</h4>
-                        <ul>
-                            <li>BayesA, BayesB, BayesC</li>
-                            <li>BayesR (multi-component)</li>
-                            <li>Bayesian Lasso</li>
-                            <li>Variational inference</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>Machine Learning</h4>
-                        <ul>
-                            <li>Random Forest ensembles</li>
-                            <li>Gradient Boosting Machines</li>
-                            <li>LASSO & Elastic Net</li>
-                            <li>Neural Network Mixed Models</li>
-                        </ul>
-                    </div>
-                </div>
+    <section id="performance">
+        <div class="container">
+            <h2>⚡ Performance Benchmarks</h2>
+            <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 2rem;">
+                AdvancedGenomics.jl is optimized for both CPU and GPU execution, delivering exceptional performance:
+            </p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Dataset Size</th>
+                        <th>CPU Time</th>
+                        <th>GPU Time</th>
+                        <th>Speedup</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GRM Construction</strong></td>
+                        <td>50K individuals × 50K SNPs</td>
+                        <td>120 seconds</td>
+                        <td>4.5 seconds</td>
+                        <td><strong style="color: var(--success);">26×</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>GWAS Scan</strong></td>
+                        <td>10K individuals × 1M SNPs</td>
+                        <td>45 minutes</td>
+                        <td>3 minutes</td>
+                        <td><strong style="color: var(--success);">15×</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transformer Training</strong></td>
+                        <td>100K sequences</td>
+                        <td>2.5 hours</td>
+                        <td>12 minutes</td>
+                        <td><strong style="color: var(--success);">12.5×</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="font-size: 0.95rem; color: var(--gray); font-style: italic; margin-top: 1rem;">
+                Benchmarks performed on Intel Xeon Gold 6248R (48 cores) + NVIDIA A100 GPU
+            </p>
+        </div>
+    </section>
 
-                <h3>Deep Learning for Genomics</h3>
-                <p>State-of-the-art neural architectures specifically designed for genomic data:</p>
-                <ul>
-                    <li><strong>Genomic Transformers:</strong> Self-attention mechanisms for capturing long-range linkage disequilibrium patterns</li>
-                    <li><strong>Graph Neural Networks:</strong> Pathway-based analysis using biological networks</li>
-                    <li><strong>Convolutional Networks:</strong> Local pattern recognition in DNA sequences</li>
-                    <li><strong>Autoencoders:</strong> Dimensionality reduction and feature learning</li>
-                    <li><strong>Explainable AI:</strong> Saliency maps and attention visualization for model interpretation</li>
-                </ul>
+    <section id="installation" style="background: var(--light);">
+        <div class="container">
+            <h2>📦 Installation</h2>
+            
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> This package is not yet registered in the Julia General Registry. Install directly from GitHub.
+            </div>
 
-                <h3>Population Genetics</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>Haplotype Analysis</h4>
-                        <ul>
-                            <li>HMM-based phasing</li>
-                            <li>Haplotype matrix construction</li>
-                            <li>IBD segment detection</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4>Ancestry & Inbreeding</h4>
-                        <ul>
-                            <li>Global ancestry estimation</li>
-                            <li>Runs of Homozygosity (ROH)</li>
-                            <li>F<sub>ROH</sub> calculation</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Complex Statistical Models</h3>
-                <ul>
-                    <li><strong>Multi-trait Models:</strong> Genetic correlation estimation across multiple phenotypes</li>
-                    <li><strong>Random Regression:</strong> Longitudinal data analysis with Legendre polynomials</li>
-                    <li><strong>Threshold Models:</strong> Probit/Logit models for categorical traits</li>
-                    <li><strong>Repeated Measures:</strong> Test-day models for dairy cattle</li>
-                    <li><strong>Causal Inference:</strong> Mendelian Randomization (MR-IVW, MR-Egger)</li>
-                </ul>
-            </section>
-
-            <section id="performance">
-                <h2>⚡ Performance</h2>
-                <p>AdvancedGenomics.jl is optimized for both CPU and GPU execution:</p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Dataset Size</th>
-                            <th>CPU Time</th>
-                            <th>GPU Time</th>
-                            <th>Speedup</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>GRM Construction</td>
-                            <td>50K individuals × 50K SNPs</td>
-                            <td>120 seconds</td>
-                            <td>4.5 seconds</td>
-                            <td><strong>26×</strong></td>
-                        </tr>
-                        <tr>
-                            <td>GWAS Scan</td>
-                            <td>10K individuals × 1M SNPs</td>
-                            <td>45 minutes</td>
-                            <td>3 minutes</td>
-                            <td><strong>15×</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Transformer Training</td>
-                            <td>100K sequences</td>
-                            <td>2.5 hours</td>
-                            <td>12 minutes</td>
-                            <td><strong>12.5×</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <p><em>Benchmarks performed on Intel Xeon Gold 6248R (48 cores) + NVIDIA A100 GPU</em></p>
-            </section>
-
-            <section id="installation">
-                <h2>📦 Installation</h2>
-                
-                <div class="warning-box">
-                    <strong>⚠️ Important:</strong> This package is not yet registered in the Julia General Registry. Install directly from GitHub.
-                </div>
-
-                <p>Open the Julia REPL and run:</p>
-                <pre><code>using Pkg
+            <p style="font-size: 1.1rem; margin: 1.5rem 0;">Open the Julia REPL and run:</p>
+            <pre><code>using Pkg
 Pkg.add(url="https://github.com/1958126580/AdvancedGenomics")</code></pre>
 
-                <p>For GPU acceleration, also install CUDA.jl:</p>
-                <pre><code>Pkg.add("CUDA")</code></pre>
-            </section>
+            <p style="font-size: 1.1rem; margin: 1.5rem 0;">For GPU acceleration, also install CUDA.jl:</p>
+            <pre><code>Pkg.add("CUDA")</code></pre>
 
-            <section id="usage">
-                <h2>💻 Usage Examples</h2>
-                
-                <h3>Example 1: GWAS Analysis</h3>
-                <pre><code>using AdvancedGenomics
+            <h3>Quick Start Example</h3>
+            <pre><code>using AdvancedGenomics
 
 # Load data
 genotypes = read_genotypes("data.vcf")
 phenotypes = read_phenotypes("traits.csv")
 
-# Quality control
-genotypes_qc = filter_maf(genotypes, 0.05)
-
-# Build genomic relationship matrix
-K = build_grm(genotypes_qc)
-
-# Run GWAS with FarmCPU
-results = run_farmcpu(phenotypes.trait1, genotypes_qc, K)
+# Run GWAS
+results = run_gwas(genotypes, phenotypes)
 
 # Visualize
-manhattan_plot(results, output="manhattan.png")
-qq_plot(results, output="qq.png")</code></pre>
+manhattan_plot(results)</code></pre>
+        </div>
+    </section>
 
-                <h3>Example 2: Genomic Selection</h3>
-                <pre><code># Build kernel
-K = build_grm(genotypes)
+    <section id="community">
+        <div class="container">
+            <h2>💬 Community & Discussion</h2>
+            
+            <div class="discussion-section">
+                <p style="font-size: 1.2rem; text-align: center; margin-bottom: 2rem; color: var(--dark);">
+                    Join our growing community of researchers and developers
+                </p>
+                
+                <div class="discussion-grid">
+                    <div class="discussion-card">
+                        <div class="icon">💬</div>
+                        <h4>GitHub Discussions</h4>
+                        <p style="color: var(--gray); margin: 1rem 0;">Ask questions, share ideas, and collaborate</p>
+                        <a href="https://github.com/1958126580/AdvancedGenomics/discussions" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.7rem 1.5rem;">Join Discussion</a>
+                    </div>
+                    
+                    <div class="discussion-card">
+                        <div class="icon">🐛</div>
+                        <h4>Issue Tracker</h4>
+                        <p style="color: var(--gray); margin: 1rem 0;">Report bugs and request features</p>
+                        <a href="https://github.com/1958126580/AdvancedGenomics/issues" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.7rem 1.5rem;">Report Issue</a>
+                    </div>
+                    
+                    <div class="discussion-card">
+                        <div class="icon">📚</div>
+                        <h4>Examples</h4>
+                        <p style="color: var(--gray); margin: 1rem 0;">Explore 10+ comprehensive tutorials</p>
+                        <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/examples" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.7rem 1.5rem;">View Examples</a>
+                    </div>
+                    
+                    <div class="discussion-card">
+                        <div class="icon">🤝</div>
+                        <h4>Contributing</h4>
+                        <p style="color: var(--gray); margin: 1rem 0;">Help improve the package</p>
+                        <a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.7rem 1.5rem;">Contribute</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-# Bayesian Ridge Regression
-model = run_bayesA(phenotypes.yield, K, 
-                   niter=50000, burnin=10000)
-
-# Predict breeding values
-ebv = predict(model, new_genotypes)
-
-# Cross-validation
-cv_results = cross_validation(phenotypes.yield, K, 
-                               nfolds=5, method="BayesB")</code></pre>
-
-                <h3>Example 3: Deep Learning</h3>
-                <pre><code>using Lux
-
-# Define Genomic Transformer
-model = GenomicTransformer(
-    vocab_size = 4,        # A, C, G, T
-    embed_dim = 128,
-    num_heads = 8,
-    num_layers = 6,
-    dropout = 0.1
-)
-
-# Train model
-train_transformer!(model, genotypes, phenotypes,
-                   epochs=100, batch_size=32)
-
-# Explainable AI
-saliency = saliency_map(model, test_sequence)
-plot_saliency(saliency, output="importance.png")</code></pre>
-
-                <h3>Example 4: Multi-trait Analysis</h3>
-                <pre><code># Multi-trait LMM
-traits = [:yield, :protein, :disease_resistance]
-results = run_multitrait_lmm(phenotypes, traits, K)
-
-# Genetic correlations
-print(results.genetic_correlations)</code></pre>
-            </section>
-
-            <section id="documentation">
-                <h2>📚 Documentation & Resources</h2>
-                <ul>
-                    <li><strong>GitHub Repository:</strong> <a href="https://github.com/1958126580/AdvancedGenomics">github.com/1958126580/AdvancedGenomics</a></li>
-                    <li><strong>Examples:</strong> 10+ comprehensive tutorials in the <code>examples/</code> directory</li>
-                    <li><strong>API Reference:</strong> Full function documentation with docstrings</li>
-                    <li><strong>Issue Tracker:</strong> Report bugs or request features on GitHub</li>
-                </ul>
-            </section>
-
-            <section id="contributing">
-                <h2>🤝 Contributing</h2>
-                <p>Contributions are welcome! Please feel free to:</p>
-                <ul>
-                    <li>Submit bug reports and feature requests via GitHub Issues</li>
-                    <li>Fork the repository and submit pull requests</li>
-                    <li>Improve documentation and examples</li>
-                    <li>Share your use cases and success stories</li>
-                </ul>
-            </section>
-
-            <section id="citation">
-                <h2>📄 Citation</h2>
-                <p>If you use AdvancedGenomics.jl in your research, please cite:</p>
-                <pre><code>@software{advancedgenomics2024,
+    <section id="citation" style="background: var(--light);">
+        <div class="container">
+            <h2>📄 Citation</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                If you use AdvancedGenomics.jl in your research, please cite:
+            </p>
+            <pre><code>@software{advancedgenomics2024,
   title = {AdvancedGenomics.jl: A High-Performance Framework for Genomic Analysis},
-  author = {[Your Name]},
+  author = {Bujun Mei},
   year = {2024},
   url = {https://github.com/1958126580/AdvancedGenomics}
 }</code></pre>
-            </section>
         </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2024 AdvancedGenomics.jl | Licensed under <a href="https://opensource.org/licenses/MIT">MIT License</a></p>
-            <p>Last updated: December 1, 2025 | <a href="https://github.com/1958126580/AdvancedGenomics">View on GitHub</a></p>
-        </footer>
-    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AdvancedGenomics.jl</h4>
+                <p style="color: var(--gray);">Next-generation genomic analysis framework for Julia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="https://github.com/1958126580/AdvancedGenomics">GitHub Repository</a>
+                <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/examples">Examples</a>
+                <a href="https://github.com/1958126580/AdvancedGenomics/discussions">Discussions</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/1958126580/AdvancedGenomics/issues">Issue Tracker</a>
+                <a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md">Contributing Guide</a>
+                <a href="https://github.com/1958126580/AdvancedGenomics/blob/main/LICENSE">License (MIT)</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p style="color: var(--gray);">Author: Bujun Mei</p>
+                <p style="color: var(--gray);">Email: 1958126580@qq.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AdvancedGenomics.jl | Licensed under MIT License</p>
+            <p>Last updated: December 1, 2024</p>
+        </div>
+    </footer>
 </body>
 </html>
