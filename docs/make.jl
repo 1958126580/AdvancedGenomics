@@ -4,7 +4,7 @@ using AdvancedGenomics
 makedocs(
     sitename = "AdvancedGenomics.jl",
     format = Documenter.HTML(
-        prettyurls = get(ENV, "CI", nothing) == "true"
+        prettyurls = true
     ),
     modules = [AdvancedGenomics],
     pages = [
