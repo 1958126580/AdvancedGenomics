@@ -33,13 +33,14 @@ jobs:
       - name: Install dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
 
-      - name: Build documentation
-        run: julia --project=docs/ docs/make.jl
+      # - name: Build documentation
+      #   run: julia --project=docs/ docs/make.jl
 
-      - name: Create .nojekyll and debug.html
+      - name: Create static site manually
         run: |
+          mkdir -p docs/build
+          echo "<html><body><h1>Deployment Success</h1><p>This is a manual test.</p></body></html>" > docs/build/index.html
           touch docs/build/.nojekyll
-          echo "<html><body><h1>Debug Page</h1><p>Deployment works.</p></body></html>" > docs/build/debug.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
