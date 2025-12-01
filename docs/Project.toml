@@ -1,6 +1,6 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-AdvancedGenomics = "12345678-1234-5678-1234-567812345678"
+AdvancedGenomics = "6529369e-56d1-4235-86c7-376045432100"
 
 [compat]
 Documenter = "1"

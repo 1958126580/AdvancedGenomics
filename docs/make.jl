@@ -14,7 +14,8 @@ makedocs(
         "Tutorials" => "tutorials.md",
         "API Reference" => "api.md"
     ],
-    warnonly = true
+    warnonly = true,
+    clean = true
 )
 
 # deploydocs(
