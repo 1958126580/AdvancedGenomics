@@ -16,6 +16,7 @@ makedocs(
     ]
 )
 
-# deploydocs(
-#     repo = "github.com/1958126580/AdvancedGenomics.jl.git",
-# )
+deploydocs(
+    repo = "github.com/1958126580/AdvancedGenomics.jl.git",
+    devbranch = "main"
+)

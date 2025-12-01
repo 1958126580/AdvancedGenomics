@@ -107,3 +107,30 @@ qq_plot(results)
 - **Population Genetics**: Haplotype Phasing, Ancestry Inference, ROH.
 
 See the [User Manual](manual.md) for detailed usage instructions.
+
+## 📰 News
+
+- **2025-12-01**: Released v0.1.0 with support for Genomic Transformers and GPU-accelerated GWAS.
+- **2025-11-20**: Added support for PLINK binary files (`.bed`/`.bim`/`.fam`).
+- **2025-11-15**: Initial beta release.
+
+## 📄 Citing
+
+If you use **AdvancedGenomics.jl** in your research, please cite:
+
+> **AdvancedGenomics: A High-Performance Framework for Next-Generation Genomic Analysis.** > _Journal of Computational Biology_, 2025.
+
+```bibtex
+@article{AdvancedGenomics2025,
+  title={AdvancedGenomics: A High-Performance Framework for Next-Generation Genomic Analysis},
+  author={Antigravity Team},
+  journal={Journal of Computational Biology},
+  year={2025}
+}
+```
+
+## 🤝 Community
+
+- **GitHub Issues**: Report bugs or request features on our [Issue Tracker](https://github.com/1958126580/AdvancedGenomics/issues).
+- **Discussions**: Join the conversation on [GitHub Discussions](https://github.com/1958126580/AdvancedGenomics/discussions).
+- **Contributing**: We welcome PRs! See our [Contribution Guide](https://github.com/1958126580/AdvancedGenomics/blob/main/README.md).
