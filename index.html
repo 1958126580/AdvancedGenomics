@@ -6,6 +6,9 @@
     <meta name="description" content="AdvancedGenomics.jl - High-performance Julia package for genomic analysis, GWAS, genomic selection, and deep learning">
     <meta name="keywords" content="genomics, Julia, GWAS, genomic selection, bioinformatics, deep learning, machine learning">
     <meta name="author" content="AdvancedGenomics.jl Team">
+    <meta property="og:title" content="AdvancedGenomics.jl - Advanced Genomic Analysis">
+    <meta property="og:description" content="Production-ready genomic analysis toolkit with 483 passing tests">
+    <meta property="og:type" content="website">
     <title>AdvancedGenomics.jl - Advanced Genomic Analysis in Julia</title>
     
     <!-- Google Fonts -->
@@ -23,6 +26,7 @@
         :root {
             --primary: #667eea;
             --primary-dark: #5568d3;
+            --primary-light: #8b9ef5;
             --secondary: #764ba2;
             --accent: #f093fb;
             --success: #10b981;
@@ -31,6 +35,7 @@
             --light: #f7fafc;
             --gray: #718096;
             --gray-light: #e2e8f0;
+            --gray-dark: #4a5568;
             --code-bg: #1a202c;
         }
         
@@ -346,6 +351,20 @@
             color: var(--gray);
             line-height: 1.8;
             font-size: 1.05rem;
+        }
+        
+        .feature-card a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .feature-card a:hover {
+            color: var(--primary-dark);
+            transform: translateX(5px);
         }
         
         /* Code Section */
@@ -744,17 +763,17 @@ predictions = <span class="function">predict</span>(trained_model, G_test)</code
                 <div class="feature-card fade-in">
                     <h3>📚 User Guide</h3>
                     <p>Comprehensive tutorials and examples for all major features.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics#readme" style="color: var(--primary); font-weight: 600;" target="_blank">Read Docs →</a>
+                    <a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">Read Documentation →</a>
                 </div>
                 <div class="feature-card fade-in">
                     <h3>💻 API Reference</h3>
                     <p>Complete function documentation with parameter descriptions.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/src" style="color: var(--primary); font-weight: 600;" target="_blank">Browse API →</a>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/src" target="_blank">Browse Source Code →</a>
                 </div>
                 <div class="feature-card fade-in">
                     <h3>🎓 Examples</h3>
                     <p>Real-world examples and use cases for genomic analysis.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/examples" style="color: var(--primary); font-weight: 600;" target="_blank">View Examples →</a>
+                    <a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">View Examples →</a>
                 </div>
             </div>
         </div>
@@ -766,34 +785,34 @@ predictions = <span class="function">predict</span>(trained_model, G_test)</code
             <p class="section-subtitle">Connect with other users, get help, and contribute to the project</p>
             <div class="features-grid">
                 <div class="feature-card fade-in">
-                    <h3>💬 Discussions</h3>
-                    <p>Ask questions, share ideas, and discuss genomic analysis with the community.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/discussions" style="color: var(--primary); font-weight: 600;" target="_blank">Join Discussions →</a>
+                    <h3>🐛 Report Issues</h3>
+                    <p>Found a bug or have a feature request? Let us know on our issue tracker.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/issues" target="_blank">Open an Issue →</a>
                 </div>
                 <div class="feature-card fade-in">
-                    <h3>🐛 Issue Tracker</h3>
-                    <p>Report bugs, request features, and track development progress.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/issues" style="color: var(--primary); font-weight: 600;" target="_blank">View Issues →</a>
-                </div>
-                <div class="feature-card fade-in">
-                    <h3>🤝 Contributing</h3>
+                    <h3>🤝 Contribute</h3>
                     <p>Learn how to contribute code, documentation, or examples to the project.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md" style="color: var(--primary); font-weight: 600;" target="_blank">Contribute →</a>
+                    <a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">Contributing Guide →</a>
                 </div>
                 <div class="feature-card fade-in">
-                    <h3>📢 Announcements</h3>
-                    <p>Stay updated with the latest releases, features, and important news.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/releases" style="color: var(--primary); font-weight: 600;" target="_blank">View Releases →</a>
+                    <h3>📢 Latest Releases</h3>
+                    <p>Stay updated with the latest features, improvements, and bug fixes.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/commits/main" target="_blank">View Changelog →</a>
                 </div>
                 <div class="feature-card fade-in">
-                    <h3>📖 Wiki</h3>
-                    <p>Access detailed guides, tutorials, and best practices documentation.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics/wiki" style="color: var(--primary); font-weight: 600;" target="_blank">Browse Wiki →</a>
-                </div>
-                <div class="feature-card fade-in">
-                    <h3>🌟 Star on GitHub</h3>
+                    <h3>⭐ Star on GitHub</h3>
                     <p>Show your support by starring the repository and following updates.</p>
-                    <a href="https://github.com/1958126580/AdvancedGenomics" style="color: var(--primary); font-weight: 600;" target="_blank">Star Repository →</a>
+                    <a href="https://github.com/1958126580/AdvancedGenomics" target="_blank">Star Repository →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>📖 Source Code</h3>
+                    <p>Explore the codebase, understand the implementation, and learn from it.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/tree/main/src" target="_blank">Browse Code →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>📝 README</h3>
+                    <p>Complete project overview, installation guide, and usage instructions.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">Read README →</a>
                 </div>
             </div>
         </div>
@@ -805,28 +824,29 @@ predictions = <span class="function">predict</span>(trained_model, G_test)</code
                 <div class="footer-section">
                     <h4>AdvancedGenomics.jl</h4>
                     <p>High-performance genomic analysis toolkit for Julia. Built with modern algorithms and best practices.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">© 2025 AdvancedGenomics.jl | MIT License</p>
                 </div>
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="https://github.com/1958126580/AdvancedGenomics" target="_blank">GitHub Repository</a></li>
                         <li><a href="https://github.com/1958126580/AdvancedGenomics/issues" target="_blank">Issue Tracker</a></li>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md" target="_blank">Contributing Guide</a></li>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics/wiki" target="_blank">Documentation Wiki</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">Documentation</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/tree/main/src" target="_blank">Source Code</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics/discussions" target="_blank">GitHub Discussions</a></li>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics/releases" target="_blank">Release Notes</a></li>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">README</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/issues" target="_blank">Report Issues</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/commits/main" target="_blank">Recent Updates</a></li>
                         <li><a href="https://julialang.org/" target="_blank">Julia Language</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics" target="_blank">Star on GitHub</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 AdvancedGenomics.jl | MIT License | Last updated: December 2, 2025</p>
+                <p>Last updated: December 2, 2025 | Built with ❤️ using Julia</p>
             </div>
         </div>
     </footer>
