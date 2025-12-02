@@ -64,7 +64,7 @@ export GenomicTransformer, GenomicGNN, train_transformer!
 export saliency_map
 
 # Export Visualization
-export manhattan_plot, qq_plot, manhattan_plot_interactive, qq_plot_interactive, generate_html_report, build_MME, solve_MME, calculate_r2, ld_pruning, benjamini_hochberg, build_dominance_kernel, build_haplotype_kernel, build_grm, build_rbf_kernel, estimate_vc_reml
+export manhattan_plot, qq_plot, manhattan_plot_interactive, qq_plot_interactive, generate_html_report, generate_gs_html_report, build_MME, solve_MME, calculate_r2, ld_pruning, benjamini_hochberg, build_dominance_kernel, build_haplotype_kernel, build_grm, build_rbf_kernel, estimate_vc_reml
 
 # Export HPC
 export build_grm_gpu

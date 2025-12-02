@@ -71,27 +71,10 @@ function run_threshold_model(y_cat::Vector{Int}, X::Matrix{Float64}, K::Matrix{F
             lo = thresholds[c]
             hi = thresholds[c+1]
             
-            # Sample truncated normal
-            # Using simple rejection or inverse CDF if available
-            # For speed, just approximate or use Distributions
-            
-            # d = Normal(mu_vec[i], 1.0)
-            # y_l[i] = rand(Truncated(d, lo, hi))
-            
-            # Simple rejection sampling for demo
-            valid = false
-            while !valid
-                val = randn() + mu_vec[i]
-                if val > lo && val < hi
-                    y_l[i] = val
-                    valid = true
-                end
-                # Fallback for tight bounds
-                if !valid
-                     y_l[i] = (max(lo, -10.0) + min(hi, 10.0)) / 2.0 # Placeholder
-                     valid = true
-                end
-            end
+            # Sample from truncated normal distribution
+            # Using Distributions.jl for efficient and correct sampling
+            d = Normal(mu_vec[i], 1.0)
+            y_l[i] = rand(Truncated(d, lo, hi))
         end
         
         # 2. Sample Fixed Effects beta

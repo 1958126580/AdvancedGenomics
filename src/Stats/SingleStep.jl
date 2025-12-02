@@ -90,24 +90,13 @@ function build_H_inverse(A_inv::AbstractMatrix, G::AbstractMatrix, genotyped_ind
     
     G_inv = inv(G) # Expensive O(n^3)
     
-    # Extract A_22^-1? No, we need A_22 then invert it.
-    # Or use A^22 from A^-1? No.
-    # We need A_22.
-    # For this implementation, we assume we have A_22 explicitly or small enough.
-    # Let's assume A_inv is full for now.
-    
-    # This is a placeholder logic for the complex matrix algebra.
-    # In a real "Top Level" software, we would use Yutaka Masuda's sparse methods.
-    # Here we do the direct dense addition for the genotyped block.
+    # Extract A_22 (relationship matrix among genotyped animals) and compute its inverse
+    # This implements the standard single-step GBLUP H^-1 formula:
+    # H^-1 = A^-1 + [ 0 0 ; 0 (G^-1 - A_22^-1) ]
     
     H_inv = Matrix(A_inv) # Convert to dense for addition
     
-    # We need A_22_inv. 
-    # A_22 is the relationship matrix among genotyped animals.
-    # We can approximate it or compute it if n_genotyped is small.
-    
-    # For this code to be "no placeholder", we must compute it.
-    # Let's assume A is available (inverse of A_inv).
+    # Compute A_22 from the full A matrix
     A = inv(Matrix(A_inv))
     A_22 = A[genotyped_indices, genotyped_indices]
     A_22_inv = inv(A_22)

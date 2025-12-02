@@ -102,9 +102,9 @@ Run Genomic Selection.
     tprint(Panel("Accuracy: {bold}$(res.mean_accuracy){/bold}", title="Results", style="green"))
     
     if report
-        # GS report might be different, but using same for now
-        # generate_html_report(res, out * "_report.html") # GS res might not have p-values
-        @warn "Report generation for GS not fully implemented yet."
+        @info "Generating HTML Report..."
+        generate_gs_html_report(res, out * "_report.html", title="Genomic Selection Report", method=method)
+        tprint(Panel("Report saved to {bold}$(out)_report.html{/bold}", style="blue"))
     end
 end
 
