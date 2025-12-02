@@ -6,6 +6,8 @@ using Random
 using DataFrames
 using CSV
 using Lux
+using Optimisers
+using Zygote
 # using CUDA # Removed as it is a weak dependency
 
 # Export Core Types

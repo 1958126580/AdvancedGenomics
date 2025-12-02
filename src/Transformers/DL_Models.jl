@@ -85,8 +85,6 @@ function train_autoencoder!(model, X::Matrix{Float32};
                            lr::Float64=0.001, 
                            batch_size::Int=32,
                            use_gpu::Bool=false)
-    using Optimisers
-    using Zygote
     
     # Initialize parameters and state
     rng = Random.default_rng()
@@ -94,18 +92,19 @@ function train_autoencoder!(model, X::Matrix{Float32};
     
     # Move to GPU if requested
     if use_gpu
+        # We assume user has loaded CUDA if they requested use_gpu=true
+        # ps = ps |> gpu 
+        # But we need 'gpu' function. Lux exports 'gpu' (from ComponentArrays/Functors).
+        # However, without CUDA loaded, 'gpu' might not move to device?
+        # Lux's 'gpu' usually moves to CUDA if CUDA is loaded.
+        
+        # We'll just attempt to move to gpu.
         try
-            using CUDA
-            if CUDA.functional()
-                ps = ps |> gpu
-                st = st |> gpu
-                X = X |> gpu
-            else
-                @warn "GPU requested but CUDA not functional. Using CPU."
-                use_gpu = false
-            end
-        catch
-            @warn "GPU requested but CUDA not available. Using CPU."
+            ps = ps |> gpu
+            st = st |> gpu
+            X = X |> gpu
+        catch e
+            @warn "Failed to move to GPU: $e. Using CPU."
             use_gpu = false
         end
     end

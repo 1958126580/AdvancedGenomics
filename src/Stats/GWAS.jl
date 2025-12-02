@@ -234,11 +234,4 @@ function run_farmcpu(y::Vector{Float64}, G::GenotypeMatrix, X_cov::Matrix{Float6
     return (p_values=p_values, qtns=qtns)
 end
 
-"""
-    run_gwas_gpu(y, G)
 
-Runs GWAS on GPU. Requires `using CUDA`.
-"""
-function run_gwas_gpu(y::Vector{Float64}, G::GenotypeMatrix)
-    error("CUDA.jl is not loaded. Please run `using CUDA` to enable GPU functionality.")
-end

@@ -69,15 +69,7 @@ function build_grm(G::GenotypeMatrix)
     return K
 end
 
-"""
-    build_grm_gpu(G)
 
-Constructs the Genomic Relationship Matrix on GPU.
-Requires `using CUDA`.
-"""
-function build_grm_gpu(G::GenotypeMatrix)
-    error("CUDA.jl is not loaded. Please run `using CUDA` to enable GPU functionality.")
-end
 
 """
     build_rbf_kernel(X; sigma=1.0)

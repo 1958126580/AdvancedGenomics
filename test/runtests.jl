@@ -513,3 +513,4 @@ end
 
 include("gpu_tests.jl")
 include("vis_tests.jl")
+include("performance_verification.jl")
