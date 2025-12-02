@@ -17,37 +17,47 @@ Since `x` is discrete (indices), we typically look at the gradient w.r.t the emb
 """
 function saliency_map(model, x, ps, st)
     # x: Input indices (seq_len, batch)
-    # We want d(Output)/d(Embedding).
+    # Compute gradient of output with respect to input
     
-    # In Lux, we can use Zygote or similar AD.
-    # Since we don't have Zygote loaded in the main package (to keep deps light?),
-    # we might need to rely on numerical differentiation or assume Zygote is available.
+    # For discrete inputs (indices), we compute gradient w.r.t embeddings
+    # This gives us the sensitivity of each position
     
-    # For "Top Level" code, we should use AD.
-    # Assuming the user has Zygote.
-    
-    # Placeholder for AD logic:
-    # gradient(m -> sum(m(x, ps, st)[1]), model)
-    
-    # Since we can't easily add Zygote dependency dynamically, 
-    # we will implement a perturbation-based saliency (Occlusion Sensitivity).
-    
-    # Occlusion: Mask each SNP and measure drop in prediction.
-    
+    # Forward pass to get baseline output
     y_orig, _ = model(x, ps, st)
-    y_val = y_orig[1]
     
-    seq_len = size(x, 1)
-    saliency = zeros(seq_len)
+    # Use Zygote to compute gradients
+    # We compute the gradient of the sum of outputs w.r.t. the input
+    grads = Zygote.gradient(x -> begin
+        y, _ = model(x, ps, st)
+        sum(y)
+    end, x)
     
-    for i in 1:seq_len
-        x_occ = copy(x)
-        x_occ[i] = 1 # Mask with 1 (assuming 0/missing)
+    # Extract gradient magnitude for each position
+    grad_x = grads[1]
+    
+    if grad_x === nothing
+        # Fallback to occlusion sensitivity if gradients not available
+        seq_len = size(x, 1)
+        saliency = zeros(seq_len)
+        y_val = y_orig[1]
         
-        y_occ, _ = model(x_occ, ps, st)
-        diff = abs(y_val - y_occ[1])
-        saliency[i] = diff
+        for i in 1:seq_len
+            x_occ = copy(x)
+            x_occ[i, :] .= 1 # Mask with 1 (neutral value)
+            
+            y_occ, _ = model(x_occ, ps, st)
+            diff = abs(y_val - y_occ[1])
+            saliency[i] = diff
+        end
+        
+        return saliency
+    else
+        # Return absolute gradient values as saliency
+        # Average across batch dimension if present
+        if ndims(grad_x) > 1
+            return vec(mean(abs.(grad_x), dims=2))
+        else
+            return abs.(grad_x)
+        end
     end
-    
-    return saliency
 end

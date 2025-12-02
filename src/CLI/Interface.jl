@@ -29,14 +29,18 @@ Run Genome-Wide Association Study.
         y = randn(100)
         G = GenotypeMatrix(G_mat, String[], String[])
     else
-        # Real load (Placeholder)
-        @info "Loading data..."
-        # G = read_genotypes(geno)
-        # y = read_phenotypes(pheno)
-        # For now, just simulate to keep it working
-        G_mat = simulate_genotypes(100, 1000)
-        y = randn(100)
-        G = GenotypeMatrix(G_mat, String[], String[])
+        # Load actual data files
+        @info "Loading genotype data from $geno..."
+        G = read_genotypes(geno, format="csv")
+        
+        @info "Loading phenotype data from $pheno..."
+        pheno_data = read_phenotypes(pheno, id_col=:ID, trait_cols=[:Trait])
+        y = pheno_data.data.Trait
+        
+        # Ensure dimensions match
+        if size(G.data, 1) != length(y)
+            error("Dimension mismatch: $(size(G.data, 1)) individuals in genotype vs $(length(y)) in phenotype")
+        end
     end
 
     # Progress bar example

@@ -87,12 +87,62 @@ function GenomicTransformer(; vocab_size=3, embed_dim=64, num_heads=4, hidden_di
 end
 
 """
-    train_transformer!(model, ps, st, data, epochs)
+    train_transformer!(model, X_train, y_train; epochs=10, lr=0.001, batch_size=32)
 
-Training loop placeholder.
+Complete training loop for Genomic Transformer.
+Uses Adam optimizer and MSE loss for regression tasks.
 """
-function train_transformer!(model, ps, st, loader, opt, epochs)
-    # Standard Lux training loop would go here
-    # gradients, optimization step, etc.
-    @info "Training function placeholder"
+function train_transformer!(model, X_train::Matrix, y_train::Vector{Float64}; 
+                           epochs::Int=10, 
+                           lr::Float64=0.001, 
+                           batch_size::Int=32)
+    # Initialize parameters and state
+    rng = Random.default_rng()
+    ps, st = Lux.setup(rng, model)
+    
+    # Setup optimizer
+    opt_state = Optimisers.setup(Optimisers.Adam(lr), ps)
+    
+    n_samples = size(X_train, 2)
+    n_batches = ceil(Int, n_samples / batch_size)
+    
+    # Training loop
+    for epoch in 1:epochs
+        total_loss = 0.0
+        
+        # Shuffle data
+        perm = randperm(n_samples)
+        X_shuffled = X_train[:, perm]
+        y_shuffled = y_train[perm]
+        
+        for batch_idx in 1:n_batches
+            # Get batch
+            start_idx = (batch_idx - 1) * batch_size + 1
+            end_idx = min(batch_idx * batch_size, n_samples)
+            X_batch = X_shuffled[:, start_idx:end_idx]
+            y_batch = y_shuffled[start_idx:end_idx]
+            
+            # Compute loss and gradients
+            loss, grads = Zygote.withgradient(ps) do p
+                # Forward pass
+                y_pred, _ = model(X_batch, p, st)
+                
+                # MSE loss
+                mse = mean((vec(y_pred) .- y_batch).^2)
+                return mse
+            end
+            
+            # Update parameters
+            opt_state, ps = Optimisers.update(opt_state, ps, grads[1])
+            
+            total_loss += loss
+        end
+        
+        avg_loss = total_loss / n_batches
+        if epoch % 10 == 0 || epoch == 1
+            println("Epoch $epoch/$epochs - Loss: $(round(avg_loss, digits=6))")
+        end
+    end
+    
+    return ps, st
 end
