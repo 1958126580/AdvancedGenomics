@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -31,6 +31,7 @@
             --light: #f7fafc;
             --gray: #718096;
             --gray-light: #e2e8f0;
+            --code-bg: #1a202c;
         }
         
         html {
@@ -85,7 +86,7 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
             position: relative;
         }
         
@@ -377,6 +378,12 @@
             font-size: 1.05rem;
             position: relative;
             top: 2px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .code-tab:hover {
+            color: var(--primary-dark);
+            background: rgba(102, 126, 234, 0.03);
         }
         
         .code-tab.active {
@@ -386,8 +393,22 @@
             border-radius: 8px 8px 0 0;
         }
         
+        .code-content {
+            display: none;
+        }
+        
+        .code-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         pre {
-            background: #1a202c;
+            background: var(--code-bg);
             color: #e2e8f0;
             padding: 2rem;
             border-radius: 12px;
@@ -471,7 +492,7 @@
         .footer-section a {
             color: #cbd5e0;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: inline-block;
         }
         
@@ -536,6 +557,7 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#quickstart">Quick Start</a></li>
                 <li><a href="#documentation">Docs</a></li>
+                <li><a href="#community">Community</a></li>
                 <li><a href="https://github.com/1958126580/AdvancedGenomics" target="_blank">GitHub</a></li>
             </ul>
         </nav>
@@ -649,11 +671,13 @@ Pkg.add(url=<span class="string">"https://github.com/1958126580/AdvancedGenomics
 
             <div class="code-section">
                 <div class="code-tabs">
-                    <button class="code-tab active">GWAS</button>
-                    <button class="code-tab">Genomic Selection</button>
-                    <button class="code-tab">Deep Learning</button>
+                    <button class="code-tab active" data-tab="gwas">GWAS</button>
+                    <button class="code-tab" data-tab="gs">Genomic Selection</button>
+                    <button class="code-tab" data-tab="dl">Deep Learning</button>
                 </div>
-                <pre><code><span class="keyword">using</span> AdvancedGenomics
+                
+                <div class="code-content active" id="gwas">
+                    <pre><code><span class="keyword">using</span> AdvancedGenomics
 
 <span class="comment"># Load data</span>
 G = read_genotypes(<span class="string">"data.vcf"</span>)
@@ -668,6 +692,46 @@ results = <span class="function">run_gwas_pipeline</span>(G, y)
 <span class="comment"># Create visualizations</span>
 <span class="function">manhattan_plot</span>(results.p_values)
 <span class="function">qq_plot</span>(results.p_values)</code></pre>
+                </div>
+                
+                <div class="code-content" id="gs">
+                    <pre><code><span class="keyword">using</span> AdvancedGenomics
+
+<span class="comment"># Load genotype and phenotype data</span>
+G = read_genotypes(<span class="string">"genotypes.bed"</span>)
+y = read_phenotypes(<span class="string">"phenotypes.txt"</span>).trait
+
+<span class="comment"># Run genomic selection with 5-fold cross-validation</span>
+results = <span class="function">run_gs_pipeline</span>(G, y, method=<span class="keyword">:gblup</span>, n_folds=5)
+
+<span class="comment"># Generate comprehensive HTML report</span>
+<span class="function">generate_gs_html_report</span>(results, <span class="string">"gs_report.html"</span>)
+
+<span class="comment"># Display results</span>
+println(<span class="string">"Mean accuracy: "</span>, results.mean_accuracy)</code></pre>
+                </div>
+                
+                <div class="code-content" id="dl">
+                    <pre><code><span class="keyword">using</span> AdvancedGenomics
+
+<span class="comment"># Load data</span>
+G = read_genotypes(<span class="string">"data.vcf"</span>)
+y = read_phenotypes(<span class="string">"traits.csv"</span>).trait
+
+<span class="comment"># Build and train genomic transformer</span>
+model = <span class="function">GenomicTransformer</span>(
+    n_markers=size(G, 2),
+    d_model=128,
+    n_heads=8,
+    n_layers=6
+)
+
+<span class="comment"># Train with GPU acceleration</span>
+trained_model = <span class="function">train_model</span>(model, G, y, epochs=100)
+
+<span class="comment"># Predict and evaluate</span>
+predictions = <span class="function">predict</span>(trained_model, G_test)</code></pre>
+                </div>
             </div>
         </div>
     </section>
@@ -696,6 +760,45 @@ results = <span class="function">run_gwas_pipeline</span>(G, y)
         </div>
     </section>
 
+    <section id="community" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Join Our Community</h2>
+            <p class="section-subtitle">Connect with other users, get help, and contribute to the project</p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <h3>💬 Discussions</h3>
+                    <p>Ask questions, share ideas, and discuss genomic analysis with the community.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/discussions" style="color: var(--primary); font-weight: 600;" target="_blank">Join Discussions →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>🐛 Issue Tracker</h3>
+                    <p>Report bugs, request features, and track development progress.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/issues" style="color: var(--primary); font-weight: 600;" target="_blank">View Issues →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>🤝 Contributing</h3>
+                    <p>Learn how to contribute code, documentation, or examples to the project.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md" style="color: var(--primary); font-weight: 600;" target="_blank">Contribute →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>📢 Announcements</h3>
+                    <p>Stay updated with the latest releases, features, and important news.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/releases" style="color: var(--primary); font-weight: 600;" target="_blank">View Releases →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>📖 Wiki</h3>
+                    <p>Access detailed guides, tutorials, and best practices documentation.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics/wiki" style="color: var(--primary); font-weight: 600;" target="_blank">Browse Wiki →</a>
+                </div>
+                <div class="feature-card fade-in">
+                    <h3>🌟 Star on GitHub</h3>
+                    <p>Show your support by starring the repository and following updates.</p>
+                    <a href="https://github.com/1958126580/AdvancedGenomics" style="color: var(--primary); font-weight: 600;" target="_blank">Star Repository →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -708,15 +811,17 @@ results = <span class="function">run_gwas_pipeline</span>(G, y)
                     <ul>
                         <li><a href="https://github.com/1958126580/AdvancedGenomics" target="_blank">GitHub Repository</a></li>
                         <li><a href="https://github.com/1958126580/AdvancedGenomics/issues" target="_blank">Issue Tracker</a></li>
-                        <li><a href="https://github.com/1958126580/AdvancedGenomics#contributing" target="_blank">Contributing</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/blob/main/CONTRIBUTING.md" target="_blank">Contributing Guide</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/wiki" target="_blank">Documentation Wiki</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Community</h4>
                     <ul>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/discussions" target="_blank">GitHub Discussions</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics/releases" target="_blank">Release Notes</a></li>
+                        <li><a href="https://github.com/1958126580/AdvancedGenomics#readme" target="_blank">README</a></li>
                         <li><a href="https://julialang.org/" target="_blank">Julia Language</a></li>
-                        <li><a href="https://discourse.julialang.org/" target="_blank">Julia Discourse</a></li>
-                        <li><a href="https://github.com/JuliaLang" target="_blank">Julia on GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -727,6 +832,22 @@ results = <span class="function">run_gwas_pipeline</span>(G, y)
     </footer>
 
     <script>
+        // Code tab switching functionality
+        document.querySelectorAll('.code-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
         // Scroll animations
         const observerOptions = {
             threshold: 0.1,
@@ -742,6 +863,20 @@ results = <span class="function">run_gwas_pipeline</span>(G, y)
         }, observerOptions);
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
